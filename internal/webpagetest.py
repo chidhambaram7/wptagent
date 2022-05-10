@@ -396,8 +396,9 @@ class WebPageTest(object):
             except Exception:
                 pass
             if needs_block:
-                subprocess.call(['sudo', 'route', 'add', '169.254.169.254', 'gw', '127.0.0.1', 'lo'])
-                self.metadata_blocked = True
+                if platform.system() == "Linux":
+                    subprocess.call(['sudo', 'route', 'add', '169.254.169.254', 'gw', '127.0.0.1', 'lo'])
+                    self.metadata_blocked = True
 
     def parse_user_data(self, user_data):
         """Parse the provided user data and extract the config info"""
